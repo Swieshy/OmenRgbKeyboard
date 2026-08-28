@@ -127,23 +127,23 @@ STRINGS = {
     'window.title': {'pl': 'OMEN Keyboard', 'en': 'OMEN Keyboard'},
     'window.mode': {'pl': 'Tryb', 'en': 'Mode'},
     'window.control': {'pl': 'Sterowanie', 'en': 'Control'},
-    'window.brightness': {'pl': 'Jasnosc', 'en': 'Brightness'},
+    'window.brightness': {'pl': 'Jasność', 'en': 'Brightness'},
     'window.profile': {'pl': 'Profil', 'en': 'Profile'},
     'window.save_as': {'pl': 'Zapisz jako…', 'en': 'Save as…'},
-    'window.delete': {'pl': 'Usun', 'en': 'Delete'},
+    'window.delete': {'pl': 'Usuń', 'en': 'Delete'},
     'window.profile_none': {'pl': '(brak)', 'en': '(none)'},
     'window.save_profile_title': {'pl': 'Zapisz profil', 'en': 'Save profile'},
     'window.save_profile_prompt': {'pl': 'Nazwa profilu:', 'en': 'Profile name:'},
     'window.save_profile_failed_title': {'pl': 'Nie zapisano', 'en': 'Not saved'},
-    'window.delete_profile_title': {'pl': 'Usunac profil?', 'en': 'Delete profile?'},
+    'window.delete_profile_title': {'pl': 'Usunąć profil?', 'en': 'Delete profile?'},
     'window.delete_profile_confirm':
-        {'pl': 'Usunac profil „{name}"?', 'en': 'Delete profile "{name}"?'},
+        {'pl': 'Usunąć profil „{name}"?', 'en': 'Delete profile "{name}"?'},
     'window.profile_saved': {'pl': 'zapisano profil „{name}"',
                              'en': 'saved profile "{name}"'},
 
     'window.reactive_box': {'pl': 'Reakcja na klawisze', 'en': 'React to keystrokes'},
     'window.reactive_no_access':
-        {'pl': 'Brak dostepu do klawiszy tej klawiatury. Zainstaluj z: '
+        {'pl': 'Brak dostępu do klawiszy tej klawiatury. Zainstaluj z: '
                'bash packaging/install.sh --with-reactive',
          'en': 'No access to this keyboard\'s keys. Install with: '
                'bash packaging/install.sh --with-reactive'},
@@ -151,38 +151,38 @@ STRINGS = {
     'window.control_bios': {'pl': 'BIOS', 'en': 'BIOS'},
     'window.control_app': {'pl': 'Aplikacja', 'en': 'App'},
     'window.control_bios_tip':
-        {'pl': 'Podswietleniem steruje firmware klawiatury — wraca fabryczny\n'
-               'efekt ustawiony w BIOS-ie (zolto-pomaranczowe pulsowanie).\n'
-               'Aplikacja niczego nie wysyla.',
+        {'pl': 'Podświetleniem steruje firmware klawiatury — wraca fabryczny\n'
+               'efekt ustawiony w BIOS-ie (żółto-pomarańczowe pulsowanie).\n'
+               'Aplikacja niczego nie wysyła.',
          'en': "The keyboard's own firmware controls the backlight — the "
                'factory\neffect from the BIOS comes back (yellow-orange '
                'pulsing).\nThe app sends nothing.'},
     'window.control_app_tip':
-        {'pl': 'Podswietleniem steruje ta aplikacja — wybrany tryb, kolory\n'
-               'i jasnosc. Firmware oddaje kontrole hostowi.',
+        {'pl': 'Podświetleniem steruje ta aplikacja — wybrany tryb, kolory\n'
+               'i jasność. Firmware oddaje kontrolę hostowi.',
          'en': 'This app controls the backlight — the selected mode, colors\n'
                'and brightness. The firmware hands control to the host.'},
     'window.control_bios_status': {'pl': 'steruje firmware klawiatury (BIOS)',
                                    'en': "keyboard firmware is in control (BIOS)"},
     'window.control_app_status': {'pl': 'steruje aplikacja', 'en': 'app is in control'},
 
-    'window.no_settings': {'pl': 'Ten tryb nie ma ustawien.',
+    'window.no_settings': {'pl': 'Ten tryb nie ma ustawień.',
                            'en': 'This mode has no settings.'},
 
     'window.paint_selected': {'pl': 'Pomaluj zaznaczone', 'en': 'Paint selection'},
     'window.paint_selected_n': {'pl': 'Pomaluj zaznaczone ({n})',
                                 'en': 'Paint selection ({n})'},
-    'window.clear_all': {'pl': 'Wyczysc wszystkie', 'en': 'Clear all'},
-    'window.brush_color': {'pl': 'Kolor pedzla', 'en': 'Brush color'},
+    'window.clear_all': {'pl': 'Wyczyść wszystkie', 'en': 'Clear all'},
+    'window.brush_color': {'pl': 'Kolor pędzla', 'en': 'Brush color'},
     'window.perkey_hint':
-        {'pl': 'Klikaj klawisze na podgladzie. Ctrl = wiele, '
-               'przeciaganie = malowanie zaznaczenia.',
+        {'pl': 'Klikaj klawisze na podglądzie. Ctrl = wiele, '
+               'przeciąganie = malowanie zaznaczenia.',
          'en': 'Click keys on the preview. Ctrl = multiple, '
                'drag = paint the selection.'},
 
-    'window.disconnected': {'pl': 'klawiatura niepodlaczona',
+    'window.disconnected': {'pl': 'klawiatura niepodłączona',
                             'en': 'keyboard not connected'},
-    'window.daemon_unreachable': {'pl': 'demon niedostepny: {err}',
+    'window.daemon_unreachable': {'pl': 'demon niedostępny: {err}',
                                   'en': 'daemon unreachable: {err}'},
     'window.lamps_at': {'pl': '{n} lampek · {dev}', 'en': '{n} lamps · {dev}'},
     'window.pick_color': {'pl': 'Wybierz kolor', 'en': 'Pick a color'},
@@ -191,149 +191,149 @@ STRINGS = {
     'tray.tooltip_daemon_down': {'pl': 'OMEN Keyboard — demon nie odpowiada',
                                  'en': 'OMEN Keyboard — daemon not responding'},
     'tray.tooltip_bios': {'pl': 'steruje BIOS', 'en': 'BIOS in control'},
-    'tray.tooltip_brightness': {'pl': 'jasnosc {v}/255', 'en': 'brightness {v}/255'},
+    'tray.tooltip_brightness': {'pl': 'jasność {v}/255', 'en': 'brightness {v}/255'},
     'tray.tooltip_profile': {'pl': 'profil: {name}', 'en': 'profile: {name}'},
     'tray.daemon_down': {'pl': 'Demon nie odpowiada', 'en': 'Daemon not responding'},
-    'tray.not_connected': {'pl': 'Klawiatura niepodlaczona',
+    'tray.not_connected': {'pl': 'Klawiatura niepodłączona',
                            'en': 'Keyboard not connected'},
-    'tray.open_window': {'pl': 'Otworz okno…', 'en': 'Open window…'},
+    'tray.open_window': {'pl': 'Otwórz okno…', 'en': 'Open window…'},
     'tray.color': {'pl': 'Kolor', 'en': 'Color'},
     'tray.mode': {'pl': 'Tryb', 'en': 'Mode'},
     'tray.preset': {'pl': 'Preset', 'en': 'Preset'},
-    'tray.brightness': {'pl': 'Jasnosc', 'en': 'Brightness'},
+    'tray.brightness': {'pl': 'Jasność', 'en': 'Brightness'},
     'tray.profile': {'pl': 'Profil', 'en': 'Profile'},
     'tray.profile_none': {'pl': '(brak zapisanych)', 'en': '(none saved)'},
     'tray.reactive': {'pl': 'Reakcja na klawisze', 'en': 'React to keystrokes'},
-    'tray.reactive_no_access': {'pl': 'Reakcja na klawisze (brak dostepu)',
+    'tray.reactive_no_access': {'pl': 'Reakcja na klawisze (brak dostępu)',
                                 'en': 'React to keystrokes (no access)'},
     'tray.control': {'pl': 'Sterowanie', 'en': 'Control'},
-    'tray.control_app_tip': {'pl': 'Kolory i tryby wysyla ta aplikacja',
+    'tray.control_app_tip': {'pl': 'Kolory i tryby wysyła ta aplikacja',
                              'en': 'This app sends colors and modes'},
     'tray.control_bios_tip': {'pl': 'Firmware klawiatury odgrywa fabryczny efekt',
                               'en': "The keyboard's firmware plays the factory effect"},
-    'tray.language': {'pl': 'Jezyk', 'en': 'Language'},
-    'tray.quit': {'pl': 'Zakoncz', 'en': 'Quit'},
+    'tray.language': {'pl': 'Język', 'en': 'Language'},
+    'tray.quit': {'pl': 'Zakończ', 'en': 'Quit'},
 
     'colors.white': {'pl': 'Biel', 'en': 'White'},
     'colors.cyan': {'pl': 'Cyjan', 'en': 'Cyan'},
-    'colors.green': {'pl': 'Zielen', 'en': 'Green'},
+    'colors.green': {'pl': 'Zieleń', 'en': 'Green'},
     'colors.amber': {'pl': 'Bursztyn', 'en': 'Amber'},
-    'colors.omen_red': {'pl': 'Czerwien OMEN', 'en': 'OMEN Red'},
+    'colors.omen_red': {'pl': 'Czerwień OMEN', 'en': 'OMEN Red'},
     'colors.violet': {'pl': 'Fiolet', 'en': 'Violet'},
 
     # --- CLI: opisy podkomend i pomoc ---
-    'cli.prog_desc': {'pl': 'Sterowanie podswietleniem klawiatury HP OMEN (HID LampArray)',
+    'cli.prog_desc': {'pl': 'Sterowanie podświetleniem klawiatury HP OMEN (HID LampArray)',
                       'en': 'HP OMEN keyboard backlight control (HID LampArray)'},
-    'cli.help.socket': {'pl': 'sciezka gniazda demona', 'en': "daemon socket path"},
-    'cli.help.json': {'pl': 'surowa odpowiedz JSON', 'en': 'raw JSON response'},
-    'cli.help.brightness_top': {'pl': 'jasnosc 0-255 przy okazji zmiany efektu',
+    'cli.help.socket': {'pl': 'ścieżka gniazda demona', 'en': "daemon socket path"},
+    'cli.help.json': {'pl': 'surowa odpowiedź JSON', 'en': 'raw JSON response'},
+    'cli.help.brightness_top': {'pl': 'jasność 0-255 przy okazji zmiany efektu',
                                 'en': 'brightness 0-255 along with a mode change'},
-    'cli.help.brightness': {'pl': 'jasnosc 0-255', 'en': 'brightness 0-255'},
-    'cli.help.lang': {'pl': 'jezyk interfejsu: pl albo en',
+    'cli.help.brightness': {'pl': 'jasność 0-255', 'en': 'brightness 0-255'},
+    'cli.help.lang': {'pl': 'język interfejsu: pl albo en',
                       'en': 'interface language: pl or en'},
 
-    'cli.help.status': {'pl': 'co teraz swieci', 'en': 'what is lit right now'},
+    'cli.help.status': {'pl': 'co teraz świeci', 'en': 'what is lit right now'},
     'cli.help.map': {'pl': 'mapa lampek', 'en': 'lamp map'},
     'cli.help.keylist': {'pl': 'nazwy klawiszy -> lampki', 'en': 'key names -> lamps'},
-    'cli.help.effects': {'pl': 'dostepne efekty i presety', 'en': 'available effects and presets'},
-    'cli.help.off': {'pl': 'zgas', 'en': 'turn off'},
-    'cli.help.release': {'pl': 'skrot na "control bios"', 'en': 'shorthand for "control bios"'},
+    'cli.help.effects': {'pl': 'dostępne efekty i presety', 'en': 'available effects and presets'},
+    'cli.help.off': {'pl': 'zgaś', 'en': 'turn off'},
+    'cli.help.release': {'pl': 'skrót na "control bios"', 'en': 'shorthand for "control bios"'},
     'cli.help.control': {'pl': 'kto steruje: bios albo app', 'en': 'who is in control: bios or app'},
     'cli.help.effect': {'pl': 'dowolny tryb, np. effect fire speed=3',
                         'en': 'any mode, e.g. effect fire speed=3'},
-    'cli.help.resume': {'pl': 'przejmij kontrole i odtworz stan',
+    'cli.help.resume': {'pl': 'przejmij kontrolę i odtwórz stan',
                         'en': 'take control back and restore state'},
-    'cli.help.reactive': {'pl': 'klawisz swieci pod palcem (wymaga --with-reactive)',
+    'cli.help.reactive': {'pl': 'klawisz świeci pod palcem (wymaga --with-reactive)',
                           'en': 'key lights up under your finger (needs --with-reactive)'},
     'cli.help.reactive_settings':
-        {'pl': 'dla "set": np. color=FF0000 decay=0.4 curve=liniowy',
+        {'pl': 'dla "set": np. color=FF0000 decay=0.4 curve=linear',
          'en': 'for "set": e.g. color=FF0000 decay=0.4 curve=linear'},
     'cli.help.all': {'pl': 'jednolity kolor', 'en': 'a single color'},
-    'cli.help.gradient': {'pl': 'gradient wzdluz osi', 'en': 'gradient along an axis'},
-    'cli.help.wave': {'pl': 'przesuwajaca sie tecza', 'en': 'a moving rainbow'},
+    'cli.help.gradient': {'pl': 'gradient wzdłuż osi', 'en': 'gradient along an axis'},
+    'cli.help.wave': {'pl': 'przesuwająca się tęcza', 'en': 'a moving rainbow'},
     'cli.help.breathe': {'pl': 'pulsowanie', 'en': 'pulsing'},
     'cli.help.preset': {'pl': 'gotowiec', 'en': 'a preset'},
-    'cli.help.keys': {'pl': 'podswietl wybrane klawisze', 'en': 'light up selected keys'},
+    'cli.help.keys': {'pl': 'podświetl wybrane klawisze', 'en': 'light up selected keys'},
     'cli.help.keys_names': {'pl': 'np. W,A,S,D,Space', 'en': 'e.g. W,A,S,D,Space'},
-    'cli.help.keys_base': {'pl': 'kolor pozostalych', 'en': 'color of the rest'},
-    'cli.help.brightness_cmd': {'pl': 'jasnosc 0-255', 'en': 'brightness 0-255'},
+    'cli.help.keys_base': {'pl': 'kolor pozostałych', 'en': 'color of the rest'},
+    'cli.help.brightness_cmd': {'pl': 'jasność 0-255', 'en': 'brightness 0-255'},
     'cli.help.profile': {'pl': 'profile', 'en': 'profiles'},
 
-    'cli.error.bad_param': {'pl': 'blad: parametr ma miec postac klucz=wartosc, dostalem: {v!r}',
+    'cli.error.bad_param': {'pl': 'błąd: parametr ma mieć postać klucz=wartość, dostałem: {v!r}',
                             'en': 'error: a parameter must be key=value, got: {v!r}'},
-    'cli.error.profile_needs_name': {'pl': 'blad: "profile {action}" wymaga nazwy',
+    'cli.error.profile_needs_name': {'pl': 'błąd: "profile {action}" wymaga nazwy',
                                      'en': 'error: "profile {action}" needs a name'},
-    'cli.error.generic': {'pl': 'blad:', 'en': 'error:'},
-    'cli.error.bad_lang': {'pl': 'blad: nieznany jezyk {lang!r}; dostepne: pl, en',
+    'cli.error.generic': {'pl': 'błąd:', 'en': 'error:'},
+    'cli.error.bad_lang': {'pl': 'błąd: nieznany język {lang!r}; dostępne: pl, en',
                            'en': 'error: unknown language {lang!r}; available: pl, en'},
 
-    'cli.status.device': {'pl': 'urzadzenie', 'en': 'device'},
+    'cli.status.device': {'pl': 'urządzenie', 'en': 'device'},
     'cli.status.state': {'pl': 'stan', 'en': 'state'},
-    'cli.status.connected': {'pl': 'podlaczone', 'en': 'connected'},
+    'cli.status.connected': {'pl': 'podłączone', 'en': 'connected'},
     'cli.status.none': {'pl': 'BRAK', 'en': 'NONE'},
     'cli.status.released_suffix': {'pl': '  (kontrola oddana firmware)',
                                    'en': '  (control released to firmware)'},
     'cli.status.lamps': {'pl': 'lampki', 'en': 'lamps'},
     'cli.status.effect': {'pl': 'efekt', 'en': 'effect'},
-    'cli.status.brightness': {'pl': 'jasnosc', 'en': 'brightness'},
+    'cli.status.brightness': {'pl': 'jasność', 'en': 'brightness'},
     'cli.status.profile': {'pl': 'profil', 'en': 'profile'},
-    'cli.status.reactive_on': {'pl': 'reactive   : wlaczony, {color}, zanik {decay} s{avail}',
+    'cli.status.reactive_on': {'pl': 'reactive   : włączony, {color}, zanik {decay} s{avail}',
                                'en': 'reactive   : on, {color}, decay {decay} s{avail}'},
-    'cli.status.reactive_no_access': {'pl': '  (BRAK DOSTEPU — patrz omen-kbd reactive status)',
+    'cli.status.reactive_no_access': {'pl': '  (BRAK DOSTĘPU — patrz omen-kbd reactive status)',
                                       'en': '  (NO ACCESS — see omen-kbd reactive status)'},
     'cli.status.counters': {'pl': 'licznik', 'en': 'counters'},
     'cli.status.counters_line':
-        {'pl': '{frames} klatek, {reports} raportow, {reconnects} polaczen',
+        {'pl': '{frames} klatek, {reports} raportów, {reconnects} połączeń',
          'en': '{frames} frames, {reports} reports, {reconnects} reconnects'},
 
-    'cli.brightness_result': {'pl': 'jasnosc: {v}/255', 'en': 'brightness: {v}/255'},
+    'cli.brightness_result': {'pl': 'jasność: {v}/255', 'en': 'brightness: {v}/255'},
     'cli.control_bios_msg': {'pl': 'steruje firmware klawiatury (BIOS) — wraca fabryczne pulsowanie',
                              'en': "keyboard firmware is in control (BIOS) — factory pulsing is back"},
     'cli.control_result_bios': {'pl': 'steruje firmware klawiatury (BIOS)',
                                 'en': 'keyboard firmware is in control (BIOS)'},
     'cli.control_result_app': {'pl': 'steruje aplikacja', 'en': 'app is in control'},
 
-    'cli.reactive.enabled': {'pl': 'wlaczony', 'en': 'enabled'},
+    'cli.reactive.enabled': {'pl': 'włączony', 'en': 'enabled'},
     'cli.reactive.yes': {'pl': 'tak', 'en': 'yes'},
     'cli.reactive.no': {'pl': 'nie', 'en': 'no'},
-    'cli.reactive.available': {'pl': 'dostepny', 'en': 'available'},
+    'cli.reactive.available': {'pl': 'dostępny', 'en': 'available'},
     'cli.reactive.no_access_hint': {'pl': '  (brakuje --with-reactive przy instalacji)',
                                     'en': '  (missing --with-reactive at install)'},
     'cli.reactive.color': {'pl': 'kolor', 'en': 'color'},
     'cli.reactive.decay': {'pl': 'zanik', 'en': 'decay'},
-    'cli.reactive.on_ok': {'pl': 'reactive: wlaczony', 'en': 'reactive: enabled'},
+    'cli.reactive.on_ok': {'pl': 'reactive: włączony', 'en': 'reactive: enabled'},
     'cli.reactive.on_no_access':
-        {'pl': 'uwaga: reactive wlaczony, ale brak dostepu do klawiszy — '
+        {'pl': 'uwaga: reactive włączony, ale brak dostępu do klawiszy — '
                'zainstaluj z: bash packaging/install.sh --with-reactive',
          'en': 'note: reactive is enabled, but there is no access to the keys — '
                'install with: bash packaging/install.sh --with-reactive'},
-    'cli.reactive.off_ok': {'pl': 'reactive: wylaczony', 'en': 'reactive: disabled'},
+    'cli.reactive.off_ok': {'pl': 'reactive: wyłączony', 'en': 'reactive: disabled'},
     'cli.reactive.set_ok': {'pl': 'reactive: parametry zapisane',
                             'en': 'reactive: settings saved'},
 
     'cli.effects.animated': {'pl': 'animowany', 'en': 'animated'},
     'cli.effects.static': {'pl': 'statyczny', 'en': 'static'},
     'cli.effects.color_kind': {'pl': 'kolor', 'en': 'color'},
-    'cli.effects.default': {'pl': 'domyslnie', 'en': 'default'},
+    'cli.effects.default': {'pl': 'domyślnie', 'en': 'default'},
     'cli.effects.presets': {'pl': 'presety', 'en': 'presets'},
 
     'cli.profile.empty':
-        {'pl': '(brak profili — zapisz biezacy: omen-kbd profile save nazwa)',
+        {'pl': '(brak profili — zapisz bieżący: omen-kbd profile save nazwa)',
          'en': '(no profiles — save the current one: omen-kbd profile save name)'},
     'cli.profile.saved': {'pl': 'zapisany: {name}', 'en': 'saved: {name}'},
-    'cli.profile.deleted': {'pl': 'usuniety: {name}', 'en': 'deleted: {name}'},
+    'cli.profile.deleted': {'pl': 'usunięty: {name}', 'en': 'deleted: {name}'},
 
-    'cli.lang.set': {'pl': 'jezyk: {lang}', 'en': 'language: {lang}'},
+    'cli.lang.set': {'pl': 'język: {lang}', 'en': 'language: {lang}'},
 
     'app.needs_pyside6':
-        {'pl': 'GUI wymaga PySide6, ktorego nie ma w systemie.\n'
+        {'pl': 'GUI wymaga PySide6, którego nie ma w systemie.\n'
                '  Fedora:  sudo dnf install python3-pyside6\n'
-               'Samo sterowanie dziala bez GUI — sprobuj: omen-kbd status\n',
+               'Samo sterowanie działa bez GUI — spróbuj: omen-kbd status\n',
          'en': 'The GUI needs PySide6, which is not installed.\n'
                '  Fedora:  sudo dnf install python3-pyside6\n'
                'Backlight control still works without the GUI — try: omen-kbd status\n'},
     'app.cannot_reach_daemon':
-        {'pl': 'Nie moge polaczyc sie z demonem.\n\n{err}',
+        {'pl': 'Nie mogę połączyć się z demonem.\n\n{err}',
          'en': 'Cannot connect to the daemon.\n\n{err}'},
 }
 
@@ -350,23 +350,23 @@ EFFECTS = {
     'gradient': {
         'label': {'pl': 'Gradient', 'en': 'Gradient'},
         'params': {
-            'color': {'pl': 'Kolor poczatkowy', 'en': 'Start color'},
-            'color2': {'pl': 'Kolor koncowy', 'en': 'End color'},
+            'color': {'pl': 'Kolor początkowy', 'en': 'Start color'},
+            'color2': {'pl': 'Kolor końcowy', 'en': 'End color'},
             'axis': {'pl': 'Kierunek', 'en': 'Direction'},
         },
     },
     'spectrum': {
         'label': {'pl': 'Cykl widma', 'en': 'Spectrum cycle'},
         'params': {
-            'speed': {'pl': 'Predkosc', 'en': 'Speed'},
+            'speed': {'pl': 'Prędkość', 'en': 'Speed'},
             'saturation': {'pl': 'Nasycenie', 'en': 'Saturation'},
         },
     },
     'wave': {
-        'label': {'pl': 'Fala teczy', 'en': 'Rainbow wave'},
+        'label': {'pl': 'Fala tęczy', 'en': 'Rainbow wave'},
         'params': {
-            'speed': {'pl': 'Predkosc', 'en': 'Speed'},
-            'spread': {'pl': 'Rozciagniecie', 'en': 'Spread'},
+            'speed': {'pl': 'Prędkość', 'en': 'Speed'},
+            'spread': {'pl': 'Rozciągnięcie', 'en': 'Spread'},
             'axis': {'pl': 'Kierunek', 'en': 'Direction'},
             'saturation': {'pl': 'Nasycenie', 'en': 'Saturation'},
             'value': {'pl': 'Moc', 'en': 'Brightness'},
@@ -377,25 +377,25 @@ EFFECTS = {
         'params': {
             'color': {'pl': 'Kolor pierwszy', 'en': 'First color'},
             'color2': {'pl': 'Kolor drugi', 'en': 'Second color'},
-            'speed': {'pl': 'Predkosc', 'en': 'Speed'},
+            'speed': {'pl': 'Prędkość', 'en': 'Speed'},
             'scale': {'pl': 'Skala', 'en': 'Scale'},
         },
     },
     'plasma': {
         'label': {'pl': 'Plazma', 'en': 'Plasma'},
         'params': {
-            'speed': {'pl': 'Predkosc', 'en': 'Speed'},
+            'speed': {'pl': 'Prędkość', 'en': 'Speed'},
             'scale': {'pl': 'Skala', 'en': 'Scale'},
             'saturation': {'pl': 'Nasycenie', 'en': 'Saturation'},
             'value': {'pl': 'Moc', 'en': 'Brightness'},
         },
     },
     'wheel': {
-        'label': {'pl': 'Kolo teczy', 'en': 'Rainbow wheel'},
+        'label': {'pl': 'Koło tęczy', 'en': 'Rainbow wheel'},
         'params': {
-            'speed': {'pl': 'Predkosc obrotu', 'en': 'Rotation speed'},
-            'cx': {'pl': 'Srodek w poziomie', 'en': 'Center X'},
-            'cy': {'pl': 'Srodek w pionie', 'en': 'Center Y'},
+            'speed': {'pl': 'Prędkość obrotu', 'en': 'Rotation speed'},
+            'cx': {'pl': 'Środek w poziomie', 'en': 'Center X'},
+            'cy': {'pl': 'Środek w pionie', 'en': 'Center Y'},
             'saturation': {'pl': 'Nasycenie', 'en': 'Saturation'},
             'value': {'pl': 'Moc', 'en': 'Brightness'},
         },
@@ -409,71 +409,71 @@ EFFECTS = {
         },
     },
     'ripple': {
-        'label': {'pl': 'Kregi', 'en': 'Ripple'},
+        'label': {'pl': 'Kręgi', 'en': 'Ripple'},
         'params': {
             'color': {'pl': 'Kolor grzbietu', 'en': 'Crest color'},
             'base': {'pl': 'Kolor doliny', 'en': 'Trough color'},
-            'speed': {'pl': 'Predkosc', 'en': 'Speed'},
-            'wavelength': {'pl': 'Odstep kregow', 'en': 'Ring spacing'},
-            'cx': {'pl': 'Srodek w poziomie', 'en': 'Center X'},
-            'cy': {'pl': 'Srodek w pionie', 'en': 'Center Y'},
+            'speed': {'pl': 'Prędkość', 'en': 'Speed'},
+            'wavelength': {'pl': 'Odstęp kręgów', 'en': 'Ring spacing'},
+            'cx': {'pl': 'Środek w poziomie', 'en': 'Center X'},
+            'cy': {'pl': 'Środek w pionie', 'en': 'Center Y'},
         },
     },
     'scanner': {
         'label': {'pl': 'Skaner', 'en': 'Scanner'},
         'params': {
             'color': {'pl': 'Kolor smugi', 'en': 'Streak color'},
-            'base': {'pl': 'Tlo', 'en': 'Background'},
-            'speed': {'pl': 'Predkosc', 'en': 'Speed'},
-            'width': {'pl': 'Szerokosc smugi', 'en': 'Streak width'},
+            'base': {'pl': 'Tło', 'en': 'Background'},
+            'speed': {'pl': 'Prędkość', 'en': 'Speed'},
+            'width': {'pl': 'Szerokość smugi', 'en': 'Streak width'},
             'axis': {'pl': 'Kierunek', 'en': 'Direction'},
             'bounce': {'pl': 'Ruch', 'en': 'Motion'},
         },
         'choices': {
             'bounce': {
                 'bounce': {'pl': 'tam i z powrotem', 'en': 'back and forth'},
-                'loop': {'pl': 'w kolko', 'en': 'looping'},
+                'loop': {'pl': 'w kółko', 'en': 'looping'},
             },
         },
     },
     'twinkle': {
         'label': {'pl': 'Gwiazdy', 'en': 'Twinkle'},
         'params': {
-            'color': {'pl': 'Kolor blysku', 'en': 'Sparkle color'},
-            'base': {'pl': 'Tlo', 'en': 'Background'},
-            'speed': {'pl': 'Czestotliwosc', 'en': 'Frequency'},
-            'density': {'pl': 'Gestosc', 'en': 'Density'},
+            'color': {'pl': 'Kolor błysku', 'en': 'Sparkle color'},
+            'base': {'pl': 'Tło', 'en': 'Background'},
+            'speed': {'pl': 'Częstotliwość', 'en': 'Frequency'},
+            'density': {'pl': 'Gęstość', 'en': 'Density'},
         },
     },
     'confetti': {
         'label': {'pl': 'Konfetti', 'en': 'Confetti'},
         'params': {
-            'base': {'pl': 'Tlo', 'en': 'Background'},
-            'speed': {'pl': 'Czestotliwosc', 'en': 'Frequency'},
-            'density': {'pl': 'Gestosc', 'en': 'Density'},
+            'base': {'pl': 'Tło', 'en': 'Background'},
+            'speed': {'pl': 'Częstotliwość', 'en': 'Frequency'},
+            'density': {'pl': 'Gęstość', 'en': 'Density'},
         },
     },
     'fire': {
-        'label': {'pl': 'Ogien', 'en': 'Fire'},
+        'label': {'pl': 'Ogień', 'en': 'Fire'},
         'params': {
-            'speed': {'pl': 'Zywosc', 'en': 'Liveliness'},
-            'height': {'pl': 'Wysokosc plomienia', 'en': 'Flame height'},
-            'cool': {'pl': 'Wychlodzenie', 'en': 'Cooling'},
+            'speed': {'pl': 'Żywość', 'en': 'Liveliness'},
+            'height': {'pl': 'Wysokość płomienia', 'en': 'Flame height'},
+            'cool': {'pl': 'Wychłodzenie', 'en': 'Cooling'},
         },
     },
     'rain': {
         'label': {'pl': 'Deszcz', 'en': 'Rain'},
         'params': {
             'color': {'pl': 'Kolor kropli', 'en': 'Drop color'},
-            'base': {'pl': 'Tlo', 'en': 'Background'},
-            'speed': {'pl': 'Predkosc opadania', 'en': 'Fall speed'},
-            'density': {'pl': 'Gestosc', 'en': 'Density'},
-            'tail': {'pl': 'Dlugosc smugi', 'en': 'Trail length'},
+            'base': {'pl': 'Tło', 'en': 'Background'},
+            'speed': {'pl': 'Prędkość opadania', 'en': 'Fall speed'},
+            'density': {'pl': 'Gęstość', 'en': 'Density'},
+            'tail': {'pl': 'Długość smugi', 'en': 'Trail length'},
         },
     },
     'perkey': {
         'label': {'pl': 'Per klawisz', 'en': 'Per-key'},
-        'params': {'base': {'pl': 'Tlo', 'en': 'Background'}},
+        'params': {'base': {'pl': 'Tło', 'en': 'Background'}},
     },
     'off': {
         'label': {'pl': 'Zgaszone', 'en': 'Off'},
@@ -485,14 +485,14 @@ EFFECTS = {
     'reactive': {
         'label': {'pl': 'Reakcja na klawisze', 'en': 'React to keystrokes'},
         'params': {
-            'color': {'pl': 'Kolor blysku', 'en': 'Flash color'},
+            'color': {'pl': 'Kolor błysku', 'en': 'Flash color'},
             'decay': {'pl': 'Czas zaniku', 'en': 'Decay time'},
-            'curve': {'pl': 'Ksztalt zaniku', 'en': 'Decay shape'},
-            'intensity': {'pl': 'Moc blysku', 'en': 'Flash strength'},
+            'curve': {'pl': 'Kształt zaniku', 'en': 'Decay shape'},
+            'intensity': {'pl': 'Moc błysku', 'en': 'Flash strength'},
         },
         'choices': {
             'curve': {
-                'soft': {'pl': 'miekki', 'en': 'soft'},
+                'soft': {'pl': 'miękki', 'en': 'soft'},
                 'linear': {'pl': 'liniowy', 'en': 'linear'},
             },
         },
@@ -504,7 +504,7 @@ EFFECTS = {
 AXIS_CHOICES = {
     'x': {'pl': 'poziomo', 'en': 'horizontal'},
     'y': {'pl': 'pionowo', 'en': 'vertical'},
-    'd': {'pl': 'po przekatnej', 'en': 'diagonal'},
+    'd': {'pl': 'po przekątnej', 'en': 'diagonal'},
 }
 
 

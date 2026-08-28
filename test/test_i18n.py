@@ -85,7 +85,7 @@ class TestGenericStrings(unittest.TestCase):
         i18n.set_language('en')
         en = i18n.t('window.brightness')
         self.assertNotEqual(pl, en)
-        self.assertEqual(pl, 'Jasnosc')
+        self.assertEqual(pl, 'Jasność')
         self.assertEqual(en, 'Brightness')
 
     def test_format_kwargs_applied(self):
