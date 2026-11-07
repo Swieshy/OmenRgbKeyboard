@@ -62,7 +62,7 @@ class StubLampArray:
 class StubKeyWatcher:
     """Atrapa KeyWatcher. Uzywa prawdziwego pipe() jako fd — demon rejestruje
     go na selektorze (epoll_ctl wymaga faktycznie otwartego deskryptora), ale
-    nigdy z niego nie czyta naprawde: read_presses() jest przechwycone i zwraca
+    nigdy z niego nie czyta naprawde: read_events() jest przechwycone i zwraca
     wstrzykniete przez test kody, bez dotykania jadra."""
     instances = []
     default_permitted = True   # testy przestawiaja to na False, zeby symulowac
@@ -73,6 +73,7 @@ class StubKeyWatcher:
         self.permitted = StubKeyWatcher.default_permitted if permitted is None else permitted
         self.closed = False
         self._pending = []
+        self._pending_release = False
         self._r = self._w = None
         if self.permitted:
             self._r, self._w = os.pipe()
@@ -91,9 +92,13 @@ class StubKeyWatcher:
     def inject(self, evdev_codes):
         self._pending.extend(evdev_codes)
 
-    def read_presses(self, fd):
+    def inject_release(self):
+        self._pending_release = True
+
+    def read_events(self, fd):
         out, self._pending = self._pending, []
-        return out
+        had_release, self._pending_release = self._pending_release, False
+        return out, had_release
 
     def close(self):
         self.closed = True
@@ -327,17 +332,47 @@ class TestStatePersistence(DaemonHarness):
 
 
 class TestScheduling(DaemonHarness):
-    def test_static_effect_has_no_deadline(self):
-        """Statyczny efekt = selektor spi bezterminowo = zero CPU na baterii."""
+    def test_static_effect_has_no_frame_deadline_but_has_a_heartbeat(self):
+        """Statyczny efekt nie planuje klatek animacji — ale budzi sie raz na
+        HEARTBEAT_INTERVAL, zeby naprawic niewidoczne dla hosta przeskoki
+        firmware'u (np. AutonomousMode po Fn — patrz daemon.HEARTBEAT_INTERVAL),
+        a nie spac bezterminowo."""
         self.d.ensure_device(0.0)
         self.d.apply_effect({'effect': 'static', 'color': 'red'})
         self.assertIsNone(self.d.next_frame)
+        self.assertIsNotNone(self.d.next_heartbeat)
+        self.assertAlmostEqual(self.d._timeout(time.monotonic()),
+                               daemon_mod.HEARTBEAT_INTERVAL, places=2)
+
+    def test_heartbeat_force_resends_unchanged_frame(self):
+        """Sedno heartbeatu: tresc klatki jest identyczna jak poprzednio
+        wyslana, a mimo to ma pojsc na urzadzenie — bo to firmware, nie nasz
+        bufor, mogl zapomniec kolory (Fn, AutonomousMode)."""
+        self.d.ensure_device(0.0)
+        self.d.apply_effect({'effect': 'static', 'color': 'red'})
+        writes_before = StubLampArray.instances[-1].writes
+        self.d.next_heartbeat = 0.0
+        now = time.monotonic()
+        self.assertLessEqual(self.d._timeout(now), 0.0)
+        self.d.sender.invalidate()
+        self.d.render_now(force=True)
+        self.assertGreater(StubLampArray.instances[-1].writes, writes_before)
+
+    def test_released_keyboard_has_no_heartbeat(self):
+        """Po oddaniu kontroli firmware'owi (control bios) heartbeat ma sie
+        wylaczyc — inaczej co sekunde przebijalby fabryczne pulsowanie."""
+        self.d.ensure_device(0.0)
+        self.d.apply_effect({'effect': 'static', 'color': 'red'})
+        self.d.cmd_release({})
+        self.assertIsNone(self.d.next_heartbeat)
         self.assertIsNone(self.d._timeout(0.0))
 
     def test_animated_effect_schedules_frames(self):
         self.d.ensure_device(0.0)
         self.d.apply_effect({'effect': 'wave'})
         self.assertIsNotNone(self.d.next_frame)
+        self.assertIsNone(self.d.next_heartbeat,
+                          'animacja juz reasertuje co interval — heartbeat zbedny')
         self.assertAlmostEqual(self.d._timeout(self.d.next_frame - 0.033), 0.033,
                                places=5)
 
@@ -543,6 +578,27 @@ class TestReactiveTyping(DaemonHarness):
         for lid in w_ids:
             self.assertIn(lid, self.d.reactive.presses)
 
+    def test_key_release_forces_resend_in_static_mode(self):
+        """Embedded controller sam podswietla klawisze Fn na czas trzymania i
+        gasi je po puszczeniu — ale LampArray zostaje wtedy przykryty jego
+        wlasnym overlayem, nie nasza ostatnio wyslana klatka. W trybie
+        statycznym demon nie wysle nic sam z siebie, wiec puszczenie klawisza
+        musi wymusic pelne przeslanie klatki, zeby zdjac ten overlay od razu,
+        a nie dopiero przy nastepnym nacisnieciu."""
+        self.d.ensure_device(0.0)
+        self.d.apply_effect({'effect': 'static', 'color': 'red'})
+        self.d.cmd_reactive({'enable': True})
+        w_evt = StubKeyWatcher.instances[-1].fileno_list()[0]
+
+        writes_before = StubLampArray.instances[-1].writes
+        StubKeyWatcher.instances[-1].inject_release()
+        self.d._on_key_event(w_evt)
+
+        self.assertGreater(StubLampArray.instances[-1].writes, writes_before,
+                            'puszczenie klawisza musi wymusic wysylke klatki')
+        self.assertIsNone(self.d.next_frame,
+                           'samo puszczenie bez blysku nie ma animowac dalej')
+
     def test_static_effect_still_animates_while_flash_is_fading(self):
         """Sedno funkcji: tryb statyczny normalnie nie planuje klatek, ale
         zanikajacy blysk MUSI je planowac, inaczej zostanie na stale."""
@@ -600,7 +656,7 @@ class TestReactiveTyping(DaemonHarness):
 
         def boom(fd):
             raise OSError('urzadzenie zniklo')
-        StubKeyWatcher.instances[-1].read_presses = boom
+        StubKeyWatcher.instances[-1].read_events = boom
         self.d._on_key_event(w_fd)             # nie ma wyjatku na zewnatrz
         self.assertIsNone(self.d.watcher)
 

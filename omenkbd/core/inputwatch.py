@@ -25,10 +25,16 @@ _FMT = '<qqHHi'
 EVENT_SIZE = struct.calcsize(_FMT)
 
 EV_KEY = 0x01
+KEY_RELEASE = 0
 KEY_PRESS = 1
 KEY_REPEAT = 2
-# KEY_RELEASE = 0 — swiadomie ignorowane: puszczenie klawisza nie ma odswiezac
-# zaniku, przeciwnie by zniweczylo caly efekt "blysk pod palcem".
+# Puszczenie klawisza swiadomie nie zapala/odswieza blysku reactive typing —
+# to by zniweczylo caly efekt "blysk pod palcem". Trzeba je jednak ZAUWAZYC
+# (patrz had_release w read_events): embedded controller tej klawiatury sam,
+# po swojej stronie, podswietla klawisze warstwy Fn podczas trzymania Fn i
+# gasi je po puszczeniu — ale w trybie statycznym (bez planowanych klatek)
+# demon nie wysle nic sam z siebie, wiec bez wymuszonego odswiezenia tu stara
+# klatka z LampArray zostaje przykryta az do nastepnego nacisniecia.
 
 
 def parse_events(buf):
@@ -95,14 +101,18 @@ class KeyWatcher:
     def fileno_list(self):
         return list(self.fds)
 
-    def read_presses(self, fd):
-        """Czyta co jest dostepne na fd, zwraca liste kodow evdev NACISNIETYCH
-        (press albo repeat) klawiszy. Rzuca OSError przy zniknieciu urzadzenia —
-        wolajacy ma go zlapac tak jak DeviceGone dla LampArray."""
+    def read_events(self, fd):
+        """Czyta co jest dostepne na fd. Zwraca (presses, had_release):
+        presses — lista kodow evdev NACISNIETYCH (press albo repeat) klawiszy,
+        do zapalenia blysku reactive typing; had_release — czy w paczce bylo
+        choc jedno puszczenie klawisza (nie mowi ktorego — nie jest potrzebne,
+        wystarczy sam fakt, zeby wymusic odswiezenie klatki). Rzuca OSError
+        przy zniknieciu urzadzenia — wolajacy ma go zlapac tak jak DeviceGone
+        dla LampArray."""
         try:
             chunk = os.read(fd, EVENT_SIZE * 64)
         except BlockingIOError:
-            return []
+            return [], False
         if not chunk:
             raise OSError('urzadzenie wejsciowe zamkniete (EOF)')
         buf = self._buf[fd]
@@ -110,8 +120,10 @@ class KeyWatcher:
         events = parse_events(bytes(buf))
         consumed = (len(buf) // EVENT_SIZE) * EVENT_SIZE
         del buf[:consumed]
-        return [code for typ, code, val in events
-                if typ == EV_KEY and val in (KEY_PRESS, KEY_REPEAT)]
+        key_events = [(code, val) for typ, code, val in events if typ == EV_KEY]
+        presses = [code for code, val in key_events if val in (KEY_PRESS, KEY_REPEAT)]
+        had_release = any(val == KEY_RELEASE for _, val in key_events)
+        return presses, had_release
 
     def close(self):
         for fd in list(self.fds):

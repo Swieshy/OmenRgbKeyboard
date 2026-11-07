@@ -5,7 +5,8 @@ z LampUpdateComplete=0 we wszystkich poza ostatnia. Dwa procesy piszace naraz
 przeplataja sie i rozwalaja framing. Demon serializuje wszystko.
 
 Petla jest sterowana zdarzeniami, nie sleepem: gdy efekt jest statyczny, nie ma
-zadnego deadline'u i selektor blokuje sie bezterminowo — zero CPU na baterii.
+zadnego deadline'u animacji i selektor spalby bezterminowo — ale jest jeszcze
+heartbeat (patrz HEARTBEAT_INTERVAL), wiec realnie budzi sie raz na sekunde.
 Gdy efekt animowany, harmonogram jest ABSOLUTNY (next += interval), nie
 sleep(1/30), bo tamto kumuluje dryf.
 """
@@ -42,6 +43,19 @@ RECONNECT_MIN = 0.5
 RECONNECT_MAX = 5.0
 MAX_CLIENTS = 16
 
+# Kontroler tej klawiatury ma wlasne, niewidoczne dla hosta zachowania —
+# klawisz Fn podswietla warstwe funkcyjna (i firmware wtedy wchodzi w
+# AutonomousMode, ten sam mechanizm co po wybudzeniu z S3), a sam Fn idzie
+# przez interfejs "Consumer Control", do ktorego demon SWIADOMIE nie ma
+# dostepu (patrz 99-hp-lamparray-input.rules — zawezenie do dwoch wezlow
+# pisania, zeby nie rozszerzac powierzchni keyloggera na klawisze
+# multimedialne). Demon wiec nigdy nie zobaczy, ze Fn zostal puszczony.
+# Zamiast tego, gdy nic innego nie planuje klatek, co HEARTBEAT_INTERVAL
+# sekund demon sam, bez powodu, przesyla cala klatke na nowo — naprawia to
+# (i kazdy inny podobny, niewidoczny dla hosta przeskok firmware'u) bez
+# czekania na kolejne naciskniecie prawdziwego klawisza.
+HEARTBEAT_INTERVAL = 1.0
+
 
 class Daemon:
     def __init__(self, sock_path=None):
@@ -67,6 +81,7 @@ class Daemon:
 
         self.running = True
         self.next_frame = None
+        self.next_heartbeat = None
         self.reconnect_at = 0.0
         self.reconnect_delay = RECONNECT_MIN
         self._last_problem = None      # zeby nie zasypywac dziennika powtorka
@@ -159,23 +174,39 @@ class Daemon:
     def _on_key_event(self, fd):
         """Nacisniecie -> HID usage -> lamp id -> znacznik czasu, NATYCHMIAST.
         Zaden surowy kod klawisza nie przezywa poza ta funkcje — to jest
-        niezmiennik pilnowany testem braku kanalu bocznego."""
+        niezmiennik pilnowany testem braku kanalu bocznego.
+
+        Puszczenie klawisza (had_release) nie zapala blysku, ale WYMUSZA
+        ponowne wyslanie klatki — embedded controller tej klawiatury sam
+        podswietla klawisze warstwy Fn na czas trzymania Fn, a po puszczeniu
+        LampArray zostaje przykryty az demon czegos nie wysle. W trybie
+        statycznym bez tego demon milczalby do nastepnego nacisniecia."""
         try:
-            codes = self.watcher.read_presses(fd)
+            codes, had_release = self.watcher.read_events(fd)
         except OSError as e:
             log.warning('urzadzenie klawiszowe zniklo (%s)', e)
             self._close_watcher()
             self._reactive_denied = False   # sprobujemy ponownie przy nastepnym polaczeniu
             return
         codes = filter_copilot_burst(codes)
-        if not codes or not self.layout:
+        if not codes and not had_release:
             return
-        now = time.monotonic()
-        for usage in codes_to_hid(codes):
-            ids = self.layout.by_binding.get(usage)
-            if ids:
-                self.reactive.press(ids, now)
-        self.render_now()
+        if not self.layout:
+            return
+        if codes:
+            now = time.monotonic()
+            for usage in codes_to_hid(codes):
+                ids = self.layout.by_binding.get(usage)
+                if ids:
+                    self.reactive.press(ids, now)
+            self.render_now()
+        else:
+            # Samo puszczenie, zaden nowy blysk — bufor softwarowej klatki
+            # jest wiec identyczny z poprzednio wyslanym, a wysylka roznicowa
+            # (Sender.send) nic by wtedy nie wyslala. force=True wymusza
+            # pelne przeslanie i nadpisuje overlay Fn dolozony przez embedded
+            # controller, zamiast czekac na nastepne nacisniecie.
+            self.render_now(force=True)
         self.reschedule()
 
     def disconnect(self, why=''):
@@ -237,13 +268,20 @@ class Daemon:
         Zanikajacy blysk musi animowac klatki, NAWET gdy wybrany tryb jest
         statyczny — inaczej blysk zapaliby sie i zostal na stale, bo nic by
         wiecej nie przerysowalo klatki po zgasnieciu naciskanego klawisza.
+
+        Gdy nic nie animuje, zamiast spac bezterminowo planujemy heartbeat
+        (patrz HEARTBEAT_INTERVAL) — animacja i tak odswieza/reasertuje co
+        self.interval, wiec dodatkowy heartbeat byby tam zbedny.
         """
         animating = self.effect.animated or (
             self.reactive_enabled and self.reactive.has_pending())
-        if animating and self.la and not self.released:
+        connected = bool(self.la) and not self.released
+        if animating and connected:
             self.next_frame = time.monotonic() + self.interval
+            self.next_heartbeat = None
         else:
             self.next_frame = None
+            self.next_heartbeat = time.monotonic() + HEARTBEAT_INTERVAL if connected else None
 
     def apply_effect(self, params, *, persist=True, profile=None):
         eff = effects_mod.from_dict(params)
@@ -499,6 +537,7 @@ class Daemon:
         """Oddaje kontrole firmware'owi — wraca fabryczne pulsowanie."""
         self.released = True
         self.next_frame = None
+        self.next_heartbeat = None
         if self.la:
             try:
                 self.la.set_autonomous(True)
@@ -550,6 +589,8 @@ class Daemon:
         deadlines = []
         if self.next_frame is not None:
             deadlines.append(self.next_frame)
+        if self.next_heartbeat is not None:
+            deadlines.append(self.next_heartbeat)
         if not self.la:
             deadlines.append(self.reconnect_at)
         if not deadlines:
@@ -607,6 +648,17 @@ class Daemon:
                     # Zgubione klatki (zawieszenie, przeciazenie) — nie nadrabiamy
                     # ich seria, tylko przesuwamy sie na najblizszy przyszly slot.
                     self.next_frame = now + self.interval
+
+            if self.next_heartbeat is not None and now >= self.next_heartbeat:
+                # Firmware mogl po cichu wejsc w AutonomousMode (Fn i inne
+                # skroty niewidoczne dla hosta — patrz HEARTBEAT_INTERVAL) i
+                # od tamtej pory ignorowac nasze kolory. invalidate() kasuje
+                # pamiec Sendera, zeby force=True wyslalo CALA klatke, a nie
+                # tylko roznice wzgledem (blednie zapamietanego) stanu.
+                self.sender.invalidate()
+                self.render_now(force=True)
+                self.reschedule()
+                continue
 
         self.shutdown()
 
